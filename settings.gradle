@@ -1,0 +1,2 @@
+rootProject.name = "5E Character Sheet"
+include ':app'
