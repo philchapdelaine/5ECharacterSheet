@@ -1,12 +1,16 @@
 package com.example.a5echaractersheet;
 
-import android.os.Bundle;
+import android.app.Dialog;
+import   android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +23,9 @@ public class MainMenu extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private Button button;
+    private TextView char_name;
+    private TextView char_level;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,7 +65,34 @@ public class MainMenu extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // dialog = new Dialog(getActivity());
+        // dialog.setContentView(R.layout.text_popup);
+        // dialog.getWindow().setBackgroundDrawable(ResourcesCompat.getDrawable(R.drawable.pop_background));
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_menu, container, false);
+        View thisView = inflater.inflate(R.layout.fragment_main_menu, container, false);
+
+        char_name = thisView.findViewById(R.id.char_name);
+        char_level = thisView.findViewById(R.id.char_level);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", char_name.getText().toString());
+
+        // make button that launches dialog
+        button = thisView.findViewById(R.id.dialog_btn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopUp popUp = new PopUp();
+                popUp.setArguments(bundle);
+                popUp.show(getActivity().getSupportFragmentManager(), "PopUp");
+            }
+        });
+
+
+        return thisView;
+
     }
 }
